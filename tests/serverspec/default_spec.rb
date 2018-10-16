@@ -1,28 +1,33 @@
 require "spec_helper"
 require "serverspec"
 
-package = "php"
-service = "php"
-ini_config  = "/etc/php/php.ini"
-fpm_config = "/etc/php/php-fpm.conf"
-fpm_dir = "/etc/php/php-fpm.d"
-pool_file = "/etc/php/php-fpm.d/www.conf"
+php_version = "7.2"
+package = "php#{php_version}-fpm"
+service = "php#{php_version}-fpm"
+ini_config  = "/etc/php/#{php_version}/fpm/php.ini"
+fpm_config = "/etc/php/#{php_version}/fpm/php-fpm.conf"
+fpm_dir = "/etc/php/#{php_version}/fpm/pool.d"
+pool_file = "/etc/php/#{php_version}/fpm//php-fpm.d/www.conf"
 default_user = "root"
 default_group = "root"
 user    = "www"
 group   = "www"
 ports   = [9000]
 log_dir = "/var/log/php-fpm"
-pid_file = "/var/run/php-fpm.pid"
+pid_file = "/var/run/php/php-fpm.pid"
 
 case os[:family]
 when "freebsd"
+  service = "php-fpm"
+  package = "lang/php72"
   default_group = "wheel"
   package = "lang/php72"
   ini_config = "/usr/local/etc/php.ini"
   fpm_config = "/usr/local/etc/php-fpm.conf"
+  fpm_dir = "/usr/local/etc/php-fpm.d"
   pool_file = "/usr/local/etc/php-fpm.d/www.conf"
   db_dir = "/var/db/php"
+  pid_file = "/var/run/php-fpm.pid"
 end
 
 describe package(package) do

@@ -1,3 +1,5 @@
+__php_fpm_user: www
+__php_fpm_group: www
 __php_package: lang/php72
 __php_conf_dir: /usr/local/etc
 __php_fpm_log_dir: /var/log/php-fpm
