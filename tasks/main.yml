@@ -3,35 +3,24 @@
 
 - include_vars: "{{ ansible_os_family }}.yml"
 
-- include: "install-{{ ansible_os_family }}.yml"
+- include_tasks: "install-{{ ansible_os_family }}.yml"
 
-- name: Create log directory
+- name: Create php_fpm_log_dir
   file:
-    path: "{{ php_log_dir }}"
-    mode: 0755
-    owner: "{{ php_user }}"
-    group: "{{ php_group }}"
+    path: "{{ php_fpm_log_dir }}"
     state: directory
-  notify: Restart php
 
-- name: Create db directory
-  file:
-    path: "{{ php_db_dir }}"
-    mode: 0755
-    owner: "{{ php_user }}"
-    group: "{{ php_group }}"
-    state: directory
-  notify: Restart php
-
-- name: Create php.conf
+- name: Create php.ini
   template:
-    src: php.conf.j2
-    dest: "{{ php_conf_file }}"
-    validate: echo %s
-  notify: Restart php
+    src: php.ini.j2
+    dest: "{{ php_ini_file }}"
+  notify:
+    - Restart php-fpm
 
-- name: Start php
+- name: Include configure-php-fpm.yml
+  include_tasks: "configure-php-fpm.yml"
+
+- name: Start php-fpm
   service:
-    name: "{{ php_service }}"
-    enabled: true
+    name: "{{ php_fpm_service }}"
     state: started

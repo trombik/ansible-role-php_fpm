@@ -1,0 +1,21 @@
+---
+
+- name: Enable php-fpm
+  service:
+    name: "{{ php_fpm_service }}"
+    enabled: yes
+
+- name: Create php-fpm.conf
+  template:
+    src: php-fpm.conf.j2
+    dest: "{{ php_fpm_conf_file }}"
+  notify:
+    - Restart php-fpm
+
+- name: Create php-fpm pool files
+  template:
+    src: php-fpm-pool.conf.j2
+    dest: "{{ php_fpm_d_dir }}/{{ item['name'] }}.conf"
+  with_items: "{{ php_fpm_pool_config }}"
+  notify:
+    - Restart php-fpm

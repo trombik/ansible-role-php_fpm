@@ -1,6 +1,6 @@
 node ('virtualbox') {
 
-  def directory = "ansible-role-php"
+  def directory = "ansible-role-php_fpm"
   env.ANSIBLE_VAULT_PASSWORD_FILE = "~/.ansible_vault_key"
   stage 'Clean up'
   deleteDir()

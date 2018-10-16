@@ -3,16 +3,25 @@ require "serverspec"
 
 package = "php"
 service = "php"
-config  = "/etc/php/php.conf"
-user    = "php"
-group   = "php"
-ports   = [PORTS]
-log_dir = "/var/log/php"
-db_dir  = "/var/lib/php"
+ini_config  = "/etc/php/php.ini"
+fpm_config = "/etc/php/php-fpm.conf"
+fpm_dir = "/etc/php/php-fpm.d"
+pool_file = "/etc/php/php-fpm.d/www.conf"
+default_user = "root"
+default_group = "root"
+user    = "www"
+group   = "www"
+ports   = [9000]
+log_dir = "/var/log/php-fpm"
+pid_file = "/var/run/php-fpm.pid"
 
 case os[:family]
 when "freebsd"
-  config = "/usr/local/etc/php.conf"
+  default_group = "wheel"
+  package = "lang/php72"
+  ini_config = "/usr/local/etc/php.ini"
+  fpm_config = "/usr/local/etc/php-fpm.conf"
+  pool_file = "/usr/local/etc/php-fpm.d/www.conf"
   db_dir = "/var/db/php"
 end
 
@@ -20,28 +29,43 @@ describe package(package) do
   it { should be_installed }
 end
 
-describe file(config) do
+describe file(ini_config) do
   it { should be_file }
-  its(:content) { should match Regexp.escape("php") }
+  its(:content) { should match(/^\[PHP\]$/) }
+  its(:content) { should match(/^\[CLI Server\]\ncli_server\.color = On$/) }
+end
+
+describe file(fpm_config) do
+  it { should be_file }
+  its(:content) { should match(/^\[global\]\npid = #{pid_file}$/) }
 end
 
 describe file(log_dir) do
   it { should exist }
   it { should be_mode 755 }
-  it { should be_owned_by user }
-  it { should be_grouped_into group }
+  it { should be_owned_by default_user }
+  it { should be_grouped_into default_group }
 end
 
-describe file(db_dir) do
+describe file("#{log_dir}/php-fpm.log") do
   it { should exist }
-  it { should be_mode 755 }
-  it { should be_owned_by user }
-  it { should be_grouped_into group }
+  it { should be_file }
+  it { should be_owned_by default_user }
+  it { should be_grouped_into default_group }
+  it { should be_mode 600 }
+end
+
+describe file("#{log_dir}/access.log") do
+  it { should exist }
+  it { should be_file }
+  it { should be_owned_by default_user }
+  it { should be_grouped_into default_group }
+  it { should be_mode 600 }
 end
 
 case os[:family]
 when "freebsd"
-  describe file("/etc/rc.conf.d/php") do
+  describe file("/etc/rc.conf.d/php-fpm") do
     it { should be_file }
   end
 end

@@ -1,0 +1,6 @@
+__php_package: php7.2-fpm
+__php_conf_dir: /etc/php/7.2
+__php_fpm_log_dir: /var/log/php-fpm
+__php_fpm_service: php7.2-fpm
+__php_fpm_pid_file: /var/run/php/php7.2-fpm.pid
+__php_fpm_d_dir: /etc/php/7.2/pool.d

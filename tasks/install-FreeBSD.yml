@@ -2,5 +2,12 @@
 
 - name: Install php
   pkgng:
-    name: php
+    name: "{{ php_package }}"
     state: present
+
+- name: Create /etc/rc.conf.d/php-fpm
+  template:
+    src: FreeBSD.rc.subr.j2
+    dest: /etc/rc.conf.d/php-fpm
+  notify:
+    - Restart php-fpm

@@ -1,2 +1,6 @@
-__php_db_dir: /var/db/php
-__php_conf_dir: /usr/local/etc/php
+__php_package: lang/php72
+__php_conf_dir: /usr/local/etc
+__php_fpm_log_dir: /var/log/php-fpm
+__php_fpm_service: php-fpm
+__php_fpm_pid_dir: /var/run
+__php_fpm_d_dir: /usr/local/etc/php-fpm.d

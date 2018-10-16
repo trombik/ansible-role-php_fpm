@@ -1,8 +1,14 @@
-php_user: php
-php_group: php
-php_log_dir: /var/log/php
-php_db_dir: "{{ __php_db_dir }}"
-php_service: php
+php_package: "{{ __php_package }}"
 php_conf_dir: "{{ __php_conf_dir }}"
-php_conf_file: "{{ __php_conf_dir }}/php.conf"
-php_flags: ""
+php_ini_file: "{{ __php_conf_dir }}/php.ini"
+php_ini_config: ""
+
+php_fpm_service: "{{ __php_fpm_service }}"
+php_fpm_flags: ""
+php_fpm_pid_dir: "{{ __php_fpm_pid_dir }}"
+php_fpm_pid_file: "{{ php_fpm_pid_dir }}/php-fpm.pid"
+php_fpm_conf_dir: "{{ php_conf_dir }}"
+php_fpm_conf_file: "{{ php_conf_dir }}/php-fpm.conf"
+php_fpm_d_dir: "{{ __php_fpm_d_dir }}"
+php_fpm_log_dir: "{{ __php_fpm_log_dir }}"
+php_fpm_config: []
