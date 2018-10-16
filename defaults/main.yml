@@ -1,0 +1,8 @@
+php_user: php
+php_group: php
+php_log_dir: /var/log/php
+php_db_dir: "{{ __php_db_dir }}"
+php_service: php
+php_conf_dir: "{{ __php_conf_dir }}"
+php_conf_file: "{{ __php_conf_dir }}/php.conf"
+php_flags: ""

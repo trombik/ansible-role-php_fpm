@@ -1,0 +1,2 @@
+__php_db_dir: /var/db/php
+__php_conf_dir: /usr/local/etc/php

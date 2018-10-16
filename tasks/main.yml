@@ -1,0 +1,37 @@
+---
+# tasks file for ansible-role-php
+
+- include_vars: "{{ ansible_os_family }}.yml"
+
+- include: "install-{{ ansible_os_family }}.yml"
+
+- name: Create log directory
+  file:
+    path: "{{ php_log_dir }}"
+    mode: 0755
+    owner: "{{ php_user }}"
+    group: "{{ php_group }}"
+    state: directory
+  notify: Restart php
+
+- name: Create db directory
+  file:
+    path: "{{ php_db_dir }}"
+    mode: 0755
+    owner: "{{ php_user }}"
+    group: "{{ php_group }}"
+    state: directory
+  notify: Restart php
+
+- name: Create php.conf
+  template:
+    src: php.conf.j2
+    dest: "{{ php_conf_file }}"
+    validate: echo %s
+  notify: Restart php
+
+- name: Start php
+  service:
+    name: "{{ php_service }}"
+    enabled: true
+    state: started
