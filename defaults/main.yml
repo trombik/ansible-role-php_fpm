@@ -15,6 +15,9 @@ php_conf_dir: "{{ php_conf_dir_map[ansible_os_family] }}"
 
 php_ini_file: "{{ php_conf_dir }}/php.ini"
 php_ini_config: ""
+
+php_additional_packages: []
+
 php_fpm_user: "{{ __php_fpm_user }}"
 php_fpm_group: "{{ __php_fpm_group }}"
 

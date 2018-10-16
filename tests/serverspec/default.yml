@@ -3,6 +3,19 @@
     - ansible-role-php_fpm
   vars:
     php_version: "{% if ansible_os_family == 'FreeBSD' %}7.0{% elif ansible_os_family == 'OpenBSD' %}5.6{% else %}7.2{% endif %}"
+
+    php_additional_packages_map:
+      FreeBSD:
+        - "archivers/php{{ php_version_without_dot }}-zip"
+        - "textproc/php{{ php_version_without_dot }}-xsl"
+      OpenBSD:
+        - "php-zip%{{ php_version }}"
+        - "php-xsl%{{ php_version }}"
+      Debian:
+        - "php{{ php_version }}-zip"
+        - "php{{ php_version }}-xsl"
+    php_additional_packages: "{{ php_additional_packages_map[ansible_os_family] }}"
+
     php_ini_config: |
       [PHP]
       engine = On

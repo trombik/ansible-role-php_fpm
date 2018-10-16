@@ -14,11 +14,13 @@ group   = "www"
 ports   = [9000]
 log_dir = "/var/log/php-fpm"
 pid_file = "/var/run/php/php-fpm.pid"
+additional_packages = []
 
 case os[:family]
 when "ubuntu"
   user = "www-data"
   group = "www-data"
+  additional_packages = %w{ php7.2-zip php7.2-xml }
 when "openbsd"
   service = "php56_fpm"
   default_group = "wheel"
@@ -27,6 +29,7 @@ when "openbsd"
   fpm_config = "/etc/php-fpm.conf"
   fpm_dir = "/etc/php-fpm.d"
   pid_file = "/var/run/php-fpm.pid"
+  additional_packages = %w{ php-zip-5.6 php-xsl-5.6 }
 when "freebsd"
   service = "php-fpm"
   default_group = "wheel"
@@ -35,11 +38,18 @@ when "freebsd"
   fpm_config = "/usr/local/etc/php-fpm.conf"
   fpm_dir = "/usr/local/etc/php-fpm.d"
   pid_file = "/var/run/php-fpm.pid"
+  additional_packages = %w{ archivers/php70-zip textproc/php70-xsl }
 end
 pool_file = "#{fpm_dir}/www.conf"
 
 describe package(package) do
   it { should be_installed }
+end
+
+additional_packages.each do |p|
+  describe package(p) do
+    it { should be_installed }
+  end
 end
 
 describe file(fpm_dir) do
