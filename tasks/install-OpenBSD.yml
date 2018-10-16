@@ -1,0 +1,6 @@
+---
+
+- name: Install php
+  openbsd_pkg:
+    name: "{{ php_package }}"
+    state: present

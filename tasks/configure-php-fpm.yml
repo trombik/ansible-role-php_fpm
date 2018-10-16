@@ -12,6 +12,11 @@
   notify:
     - Restart php-fpm
 
+- name: Create php_fpm_d_dir
+  file:
+    path: "{{ php_fpm_d_dir }}"
+    state: directory
+
 - name: Create php-fpm pool files
   template:
     src: php-fpm-pool.conf.j2

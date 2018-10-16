@@ -1,0 +1,8 @@
+__php_fpm_user: www
+__php_fpm_group: www
+__php_package: php%7.0
+__php_conf_dir: /etc
+__php_fpm_log_dir: /var/log/php-fpm
+__php_fpm_service: php70_fpm
+__php_fpm_pid_dir: /var/run
+__php_fpm_d_dir: /etc/php-fpm.d
