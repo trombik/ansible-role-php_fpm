@@ -1,8 +1,5 @@
+__php_version: 7.2
 __php_fpm_user: www-data
 __php_fpm_group: www-data
-__php_package: php7.2-fpm
-__php_conf_dir: /etc/php/7.2/fpm
 __php_fpm_log_dir: /var/log/php-fpm
-__php_fpm_service: php7.2-fpm
 __php_fpm_pid_dir: /var/run/php
-__php_fpm_d_dir: /etc/php/7.2/fpm/pool.d

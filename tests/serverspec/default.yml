@@ -2,6 +2,7 @@
   roles:
     - ansible-role-php_fpm
   vars:
+    php_version: "{% if ansible_os_family == 'FreeBSD' %}7.0{% elif ansible_os_family == 'OpenBSD' %}5.6{% else %}7.2{% endif %}"
     php_ini_config: |
       [PHP]
       engine = On
@@ -54,7 +55,7 @@
       [global]
       pid = {{ php_fpm_pid_file }}
       error_log = {{ php_fpm_log_dir }}/php-fpm.log
-      include = {{ php_fpm_d_dir }}/*.conf
+      include = {{ php_fpm_pool_dir }}/*.conf
     php_fpm_pool_config:
       - name: www
         content: |
