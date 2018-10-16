@@ -9,6 +9,7 @@
   template:
     src: php-fpm.conf.j2
     dest: "{{ php_fpm_conf_file }}"
+    validate: "{{ php_fpm_bin }} --test -c %s"
   notify:
     - Restart php-fpm
 

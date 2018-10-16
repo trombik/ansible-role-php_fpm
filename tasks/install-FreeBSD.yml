@@ -9,5 +9,6 @@
   template:
     src: FreeBSD.rc.subr.j2
     dest: /etc/rc.conf.d/php-fpm
+    validate: sh -n %s
   notify:
     - Restart php-fpm
