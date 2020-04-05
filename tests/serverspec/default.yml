@@ -2,8 +2,6 @@
   roles:
     - ansible-role-php_fpm
   vars:
-    php_version: "{% if ansible_os_family == 'FreeBSD' %}7.0{% elif ansible_os_family == 'OpenBSD' %}5.6{% else %}7.2{% endif %}"
-
     php_additional_packages_map:
       FreeBSD:
         - "archivers/php{{ php_version_without_dot }}-zip"
