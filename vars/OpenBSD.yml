@@ -1,5 +1,5 @@
 ---
-__php_version: 7.0
+__php_version: 7.2
 __php_fpm_user: www
 __php_fpm_group: www
 __php_fpm_log_dir: /var/log/php-fpm

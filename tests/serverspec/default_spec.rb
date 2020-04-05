@@ -2,6 +2,7 @@ require "spec_helper"
 require "serverspec"
 
 php_version = "7.2"
+php_version_short = php_version.split(".").join("")
 package = "php#{php_version}-fpm"
 service = "php#{php_version}-fpm"
 ini_config = "/etc/php/#{php_version}/fpm/php.ini"
@@ -20,25 +21,25 @@ case os[:family]
 when "ubuntu"
   user = "www-data"
   group = "www-data"
-  additional_packages = %w[php7.2-zip php7.2-xml]
+  additional_packages = ["php#{php_version}-zip php#{php_version}-xml"]
 when "openbsd"
-  service = "php56_fpm"
+  service = "php#{php_version_short}_fpm"
   default_group = "wheel"
   package = "php"
   ini_config = "/etc/php.ini"
   fpm_config = "/etc/php-fpm.conf"
   fpm_dir = "/etc/php-fpm.d"
   pid_file = "/var/run/php-fpm.pid"
-  additional_packages = %w[php-zip-5.6 php-xsl-5.6]
+  additional_packages = ["php-zip-#{php_version}", "php-xsl-#{php_version}"]
 when "freebsd"
   service = "php-fpm"
   default_group = "wheel"
-  package = "lang/php70"
+  package = "lang/php#{php_version_short}"
   ini_config = "/usr/local/etc/php.ini"
   fpm_config = "/usr/local/etc/php-fpm.conf"
   fpm_dir = "/usr/local/etc/php-fpm.d"
   pid_file = "/var/run/php-fpm.pid"
-  additional_packages = %w[archivers/php70-zip textproc/php70-xsl]
+  additional_packages = ["archivers/php#{php_version_short}-zip", "textproc/php#{php_version_short}-xsl"]
 end
 pool_file = "#{fpm_dir}/www.conf"
 
