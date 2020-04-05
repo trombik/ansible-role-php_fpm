@@ -21,7 +21,7 @@ case os[:family]
 when "ubuntu"
   user = "www-data"
   group = "www-data"
-  additional_packages = ["php#{php_version}-zip php#{php_version}-xml"]
+  additional_packages = ["php#{php_version}-zip", "php#{php_version}-xml"]
 when "openbsd"
   service = "php#{php_version_short}_fpm"
   default_group = "wheel"
