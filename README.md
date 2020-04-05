@@ -1,6 +1,6 @@
 # php_fpm
 
-A brief description of the role goes here.
+`ansible` role for PHP `fpm`.
 
 # Requirements
 
