@@ -53,4 +53,4 @@ php_fpm_bin_map:
 php_fpm_bin: "{{ php_fpm_bin_map[ansible_os_family] }}"
 
 php_fpm_log_dir: "{{ __php_fpm_log_dir }}"
-php_fpm_config: []
+php_fpm_config: ""
