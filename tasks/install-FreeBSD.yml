@@ -1,19 +1,19 @@
 ---
 
 - name: Install php
-  pkgng:
+  ansible.builtin.pkgng:
     name: "{{ php_package }}"
     state: present
 
 - name: Install php_additional_packages
-  pkgng:
+  ansible.builtin.pkgng:
     name: "{{ item }}"
     state: present
   with_items: "{{ php_additional_packages }}"
 
 
 - name: Create /etc/rc.conf.d/php-fpm
-  template:
+  ansible.builtin.template:
     src: FreeBSD.rc.subr.j2
     dest: /etc/rc.conf.d/php-fpm
     validate: sh -n %s

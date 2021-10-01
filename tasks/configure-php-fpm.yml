@@ -1,12 +1,12 @@
 ---
 
 - name: Enable php-fpm
-  service:
+  ansible.builtin.service:
     name: "{{ php_fpm_service }}"
     enabled: yes
 
 - name: Create php-fpm.conf
-  template:
+  ansible.builtin.template:
     src: php-fpm.conf.j2
     dest: "{{ php_fpm_conf_file }}"
     validate: "{{ php_fpm_bin }} --test -c %s"
@@ -14,12 +14,12 @@
     - Restart php-fpm
 
 - name: Create php_fpm_pool_dir
-  file:
+  ansible.builtin.file:
     path: "{{ php_fpm_pool_dir }}"
     state: directory
 
 - name: Create php-fpm pool files
-  template:
+  ansible.builtin.template:
     src: php-fpm-pool.conf.j2
     dest: "{{ php_fpm_pool_dir }}/{{ item['name'] }}.conf"
   with_items: "{{ php_fpm_pool_config }}"
