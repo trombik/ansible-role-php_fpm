@@ -24,7 +24,6 @@ when "ubuntu"
   puts os[:release].to_f
   if os[:release].to_f < 20.04
     php_version = "7.2"
-    php_version_short = php_version.split(".").join("")
     package = "php#{php_version}-fpm"
     service = "php#{php_version}-fpm"
     ini_config = "/etc/php/#{php_version}/fpm/php.ini"
