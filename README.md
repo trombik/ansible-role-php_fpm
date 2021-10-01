@@ -36,6 +36,36 @@ None
 | `php_fpm_log_dir` | path to `fpm` log directory | `{{ __php_fpm_log_dir }}` |
 | `php_fpm_config` | content of `php-fpm.conf` | `""` |
 
+## Debian
+
+| Variable | Default |
+|----------|---------|
+| `__php_version` | `7.4` |
+| `__php_fpm_user` | `www-data` |
+| `__php_fpm_group` | `www-data` |
+| `__php_fpm_log_dir` | `/var/log/php-fpm` |
+| `__php_fpm_pid_dir` | `/var/run/php` |
+
+## FreeBSD
+
+| Variable | Default |
+|----------|---------|
+| `__php_version` | `7.4` |
+| `__php_fpm_user` | `www` |
+| `__php_fpm_group` | `www` |
+| `__php_fpm_log_dir` | `/var/log/php-fpm` |
+| `__php_fpm_pid_dir` | `/var/run` |
+
+## OpenBSD
+
+| Variable | Default |
+|----------|---------|
+| `__php_version` | `7.4` |
+| `__php_fpm_user` | `www` |
+| `__php_fpm_group` | `www` |
+| `__php_fpm_log_dir` | `/var/log/php-fpm` |
+| `__php_fpm_pid_dir` | `/var/run` |
+
 # Dependencies
 
 None
@@ -45,6 +75,13 @@ None
 ```yaml
 ---
 - hosts: localhost
+  pre_tasks:
+    # XXX remove this when Ubutu VMs are updated
+    - name: Update apt cache
+      ansible.builtin.apt:
+        update_cache: yes
+      changed_when: false
+      when: ansible_os_family == 'Debian'
   roles:
     - ansible-role-php_fpm
   vars:
@@ -60,6 +97,7 @@ None
         - "php{{ php_version }}-xsl"
     php_additional_packages: "{{ php_additional_packages_map[ansible_os_family] }}"
 
+    php_version: "{% if ansible_os_family == 'Debian' and ansible_distribution_version is version('20.04', '<') %}7.2{% else %}7.4{% endif %}"
     php_ini_config: |
       [PHP]
       engine = On
