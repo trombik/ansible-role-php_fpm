@@ -1,12 +1,14 @@
 ---
 
-- name: Install php
+- name: "Install {{ php_package }}"
   apt:
     name: "{{ php_package }}"
     state: present
+    policy_rc_d: 101
+  register: __php_fpm_install_php
 
 - name: Install php_additional_packages
   apt:
-    name: "{{ item }}"
+    name: "{{ php_additional_packages }}"
+    policy_rc_d: 101
     state: present
-  with_items: "{{ php_additional_packages }}"
