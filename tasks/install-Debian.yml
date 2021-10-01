@@ -1,14 +1,14 @@
 ---
 
 - name: "Install {{ php_package }}"
-  apt:
+  ansible.builtin.apt:
     name: "{{ php_package }}"
     state: present
     policy_rc_d: 101
   register: __php_fpm_install_php
 
 - name: Install php_additional_packages
-  apt:
+  ansible.builtin.apt:
     name: "{{ php_additional_packages }}"
     policy_rc_d: 101
     state: present

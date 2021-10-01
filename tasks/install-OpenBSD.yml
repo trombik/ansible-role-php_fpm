@@ -1,11 +1,11 @@
 ---
 
 - name: Install php
-  openbsd_pkg:
+  ansible.builtin.openbsd_pkg:
     name: "{{ php_package }}"
     state: present
 
 - name: Install php_additional_packages
-  openbsd_pkg:
+  ansible.builtin.openbsd_pkg:
     name: "{{ php_additional_packages }}"
     state: present

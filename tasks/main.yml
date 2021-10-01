@@ -1,17 +1,19 @@
 ---
 # tasks file for ansible-role-php
 
-- include_vars: "{{ ansible_os_family }}.yml"
+- name: "Include {{ ansible_os_family }}.yml"
+  include_vars: "{{ ansible_os_family }}.yml"
 
-- include_tasks: "install-{{ ansible_os_family }}.yml"
+- name: "Include install-{{ ansible_os_family }}.yml"
+  include_tasks: "install-{{ ansible_os_family }}.yml"
 
 - name: Create php_fpm_log_dir
-  file:
+  ansible.builtin.file:
     path: "{{ php_fpm_log_dir }}"
     state: directory
 
 - name: Create php.ini
-  template:
+  ansible.builtin.template:
     src: php.ini.j2
     dest: "{{ php_ini_file }}"
   notify:
@@ -21,6 +23,6 @@
   include_tasks: "configure-php-fpm.yml"
 
 - name: Start php-fpm
-  service:
+  ansible.builtin.service:
     name: "{{ php_fpm_service }}"
     state: started
