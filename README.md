@@ -16,7 +16,8 @@ None
 | `php_package` | PHP package name | `{{ php_package_map[ansible_os_family] }}` |
 | `php_conf_dir_map` | map table to lookup base directory of `php.ini` | `{"FreeBSD"=>"/usr/local/etc", "OpenBSD"=>"/etc", "Debian"=>"/etc/php/{{ php_version }}/fpm"}` |
 | `php_conf_dir` | base directory of `php.ini` | `{{ php_conf_dir_map[ansible_os_family] }}` |
-| `php_ini_file` | path to `php.ini` | `{{ php_conf_dir }}/php.ini` |
+| `php_ini_file_map` | map table to lookup path `php.ini` | `{"FreeBSD"=>"{{ php_conf_dir }}/php.ini", "Debian"=>"{{ php_conf_dir }}/php.ini", "OpenBSD"=>"{{ php_conf_dir }}/php-{{ php_version }}.ini"}` |
+| `php_ini_file` | path to `php.ini` | `{{ php_ini_file_map[ansible_os_family] }}` |
 | `php_ini_config` | content of `php.ini` | `""` |
 | `php_additional_packages` | list of extra packages to install | `[]` |
 | `php_fpm_user` | user name of `fpm` | `{{ __php_fpm_user }}` |

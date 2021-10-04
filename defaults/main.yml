@@ -14,7 +14,12 @@ php_conf_dir_map:
   Debian: "/etc/php/{{ php_version }}/fpm"
 php_conf_dir: "{{ php_conf_dir_map[ansible_os_family] }}"
 
-php_ini_file: "{{ php_conf_dir }}/php.ini"
+php_ini_file_map:
+  FreeBSD: "{{ php_conf_dir }}/php.ini"
+  Debian: "{{ php_conf_dir }}/php.ini"
+  OpenBSD: "{{ php_conf_dir }}/php-{{ php_version }}.ini"
+
+php_ini_file: "{{ php_ini_file_map[ansible_os_family] }}"
 php_ini_config: ""
 
 php_additional_packages: []
