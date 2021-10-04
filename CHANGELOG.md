@@ -1,3 +1,7 @@
+## Release 1.0.2
+
+* e5b7a15 bugfix: fix path to php.ini on OpenBSD
+
 ## Release 1.0.1
 
 * 5467d49 bugfix: QA
