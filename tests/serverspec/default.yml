@@ -22,7 +22,7 @@
         - "php{{ php_version }}-xsl"
     php_additional_packages: "{{ php_additional_packages_map[ansible_os_family] }}"
 
-    php_version: "{% if ansible_os_family == 'Debian' and ansible_distribution_version is version('20.04', '<') %}7.2{% else %}7.4{% endif %}"
+    php_version: "{% if ansible_distribution == 'Ubuntu' and ansible_distribution_version is version('20.04', '<') %}7.2{% elif ansible_distribution == 'Devuan' %}7.3{% else %}7.4{% endif %}"
     php_ini_config: |
       [PHP]
       engine = On
