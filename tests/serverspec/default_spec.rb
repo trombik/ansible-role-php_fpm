@@ -21,7 +21,6 @@ case os[:family]
 when "ubuntu"
   user = "www-data"
   group = "www-data"
-  puts os[:release].to_f
   if os[:release].to_f < 20.04
     php_version = "7.2"
     package = "php#{php_version}-fpm"
@@ -30,6 +29,16 @@ when "ubuntu"
     fpm_config = "/etc/php/#{php_version}/fpm/php-fpm.conf"
     fpm_dir = "/etc/php/#{php_version}/fpm/pool.d"
   end
+  additional_packages = ["php#{php_version}-zip", "php#{php_version}-xml"]
+when "devuan"
+  user = "www-data"
+  group = "www-data"
+  php_version = "7.3"
+  package = "php#{php_version}-fpm"
+  service = "php#{php_version}-fpm"
+  ini_config = "/etc/php/#{php_version}/fpm/php.ini"
+  fpm_config = "/etc/php/#{php_version}/fpm/php-fpm.conf"
+  fpm_dir = "/etc/php/#{php_version}/fpm/pool.d"
   additional_packages = ["php#{php_version}-zip", "php#{php_version}-xml"]
 when "openbsd"
   service = "php#{php_version_short}_fpm"
