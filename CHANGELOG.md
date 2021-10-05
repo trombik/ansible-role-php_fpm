@@ -1,3 +1,7 @@
+## Release 1.0.3
+i
+* 05b631e bugfix: support Devuan
+
 ## Release 1.0.2
 
 * e5b7a15 bugfix: fix path to php.ini on OpenBSD
